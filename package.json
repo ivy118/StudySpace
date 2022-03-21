@@ -1,5 +1,5 @@
 {
-  "name": "Ecommerce",
+  "name": "ColabTive",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -14,8 +14,12 @@
   "license": "ISC",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
+    "bcrypt": "^5.0.1",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
+    "pg": "^8.7.3",
     "postgres": "^1.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1"
