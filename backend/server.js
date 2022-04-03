@@ -8,6 +8,8 @@ const dashboard = require("./routes/dashboard");
 const app = express();
 const port = 9000;
 
+require("dotenv").config();
+
 /* Middleware */
 app.use(express.json()); // read up on this
 app.use(cors());

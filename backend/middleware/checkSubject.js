@@ -3,9 +3,6 @@ const pool = require("../db/db");
 module.exports = async (req, res, next) => {
   try {
     const { subjectTitle } = req.body;
-
-     
-
     const subject = await pool.query(
       "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = $1",
       [subjectTitle]

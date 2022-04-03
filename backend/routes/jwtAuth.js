@@ -8,18 +8,19 @@ const authorization = require("../middleware/authorization");
 /* Registering */
 router.post("/register", validInfo, async (req, res) => {
   try {
-    // 1. Destructure the req.body (name, email, password)
+    // 1. Destructure the req.body
+    // const { username, firstname, lastname, email, password } = req.body;
     const { firstname, lastname, email, password } = req.body;
-    const subjects = [];
+    const username = firstname + lastname + Math.floor(Math.random() * 10000).toString();
 
     // 2. Check if user exist (if user exist then throw error)
-    const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
-      email,
+    const user = await pool.query("SELECT * FROM users WHERE user_name = $1 OR user_email = $2", [
+      username, email, 
     ]);
 
-    // if user already exists in database
+    // If user already exists in database
     if (user.rows.length !== 0) {
-      return res.status(401).send(null); // Unauthenticated
+      return res.status(401).json(`This ${user.rows[0].user_name === username ? "username" : "email address"} is already in use.`);
     }
 
     // 3. Bcrypt the user password
@@ -28,19 +29,15 @@ router.post("/register", validInfo, async (req, res) => {
     const bcryptPassword = await bcrypt.hash(password, salt);
 
     // 4. Enter the new user inside our database
-    const newUser = await ((subjects.length > 0) ? pool.query(
-      "INSERT INTO users (user_name, user_email, user_password, user_subject) VALUES ($1, $2, $3, $4) RETURNING *",
-      [firstname+lastname, email, bcryptPassword, subjects]
-    ) : pool.query(
-      "INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *",
-      [firstname+lastname, email, bcryptPassword])
+    const newUser = await pool.query(
+      "INSERT INTO users (user_name, first_name, last_name, user_email, user_password) VALUES ($1, $2, $3, $4, $5) RETURNING *",
+      [username, firstname, lastname, email, bcryptPassword]
     );
 
     // 5. generating our JWT token
     const token = jwtGenerator(newUser.rows[0].user_id);
     res.json({ token });
   } catch (err) {
-    console.log('hit');
     console.error(err.message);
     res.status(500).send("Server Error");
   }

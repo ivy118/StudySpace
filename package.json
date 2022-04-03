@@ -25,7 +25,8 @@
     "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
-    "concurrently": "^7.0.0",
+    "concurrently": "^7.1.0",
+    "node-env-run": "^4.0.2",
     "nodemon": "^2.0.15"
   }
 }
