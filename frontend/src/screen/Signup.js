@@ -12,20 +12,25 @@ import {
     Routes,
     Route,
     Link,
+    useNavigate
   } from "react-router-dom";
 
 
 export const Signup = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [fname, setFname] = useState("");
     const [lname, setLname] = useState("");
+    const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     const signupHandler = (e) => {
         e.preventDefault();
-        dispatch(storeUser([fname,lname, email,password]));
+        dispatch(storeUser([fname,lname, username, email,password]));
+
+        navigate('/home');
     }
 
 
@@ -38,6 +43,9 @@ export const Signup = () => {
 
         <label htmlFor="lname"></label>
         <input type="text" id="lname" name="lname" placeholder="Last Name" value={lname} onChange={e => setLname(e.target.value)}/>
+
+        <label htmlFor="username"></label>
+        <input type="text" id="username" name="username" placeholder="Username" value={username} onChange={e => setUsername(e.target.value)}/>
 
         <label htmlFor="email"></label>
         <input type="text" id="email" name="email" placeholder="Email Address" value={email} onChange={e => setEmail(e.target.value)}/>

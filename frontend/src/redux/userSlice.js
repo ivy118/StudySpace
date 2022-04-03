@@ -16,9 +16,10 @@ export const userSlice = createSlice({
             state.user = {
                 firstname: result[0],
                 lastname: result[1],
-                email: result[2],
-                password: result[3],
-                loginStatus: result[4],
+                username: result[2],
+                email: result[3],
+                password: result[4],
+                loginStatus: true
             }
         },
         user_login_failure: (state, action) => {
@@ -34,11 +35,14 @@ export const userSlice = createSlice({
             state.user = {
                 firstname: result[0],
                 lastname: result[1],
-                email: result[2],
-                password: result[3],
-                loginStatus: result[4],
+                username: result[2],
+                email: result[3],
+                password: result[4],
+                loginStatus: true,
             }
         },
+
+
         user_signup_failure: (state) => {
             state.error = "The email you are using is associated with another account, please login instead or create another account";
         }
@@ -52,7 +56,7 @@ export const verifyUser = (action) => {
         email: action[0],
         password: action[1],
       }).then((response)=> {
-          console.log("response", response)
+          console.log("response in login", response)
         if (response.data === "Password or Email is incorrect") {
             dispatch(user_signup_failure());
         } else {
@@ -69,10 +73,11 @@ export const storeUser = (action) => {
         const response = API.post('/auth/register', {
         firstname: action[0],
         lastname: action[1],
-        email: action[2],
-        password: action[3],
+        username: action[2],
+        email: action[3],
+        password: action[4],
       }).then((response)=> {
-          console.log("response", response)
+          console.log("response in signup", response)
         if (response.data) {
             dispatch(user_signup_failure());
         } else {
