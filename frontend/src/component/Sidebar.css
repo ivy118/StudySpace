@@ -1,0 +1,83 @@
+.nav-menu {
+    background-color: rgb(53, 50, 50);
+    width: 3%;
+    height: 100vh; 
+    margin: 0;
+    padding: 0; 
+    transition: all .5s;
+}
+
+.Navbar-container {
+
+}
+.nm-active {
+    overflow-y: scroll; 
+    transition: all .5s;
+    overflow: hidden;  
+    width: 15%; 
+}
+
+
+.menu-bars {
+    font-size: 1.6rem;
+    margin: 10px;
+    color: rgb(238, 197, 231);
+
+}
+
+.active {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center; 
+}
+
+
+.menu-bars:hover {
+    color: rgb(191, 224, 240);
+    transition: 0.9s;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+
+}
+
+.menu-list {
+    margin-top: 10%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-list li {
+    margin-top: 5%;
+    list-style-type: none;
+    color:aliceblue;
+    -webkit-transition-property: transform;
+    transition-property: transform;
+    -webkit-transition-duration: 0.3s;
+    transition-duration: 0.3s;
+    -webkit-transition-timing-function: ease-out;
+    transition-timing-function: ease-out;
+}
+
+.menu-list a {
+    text-decoration: none;
+    font-family: Verdana,'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color:rgb(198, 239, 241);
+    font-size: 1.1rem;
+} 
+
+
+
+.menu-list li:hover {
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}  
+
+
+.add-community {
+    position: absolute;
+    bottom: 2.5%;
+    left: 2.5%;
+}

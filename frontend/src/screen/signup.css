@@ -1,0 +1,108 @@
+.signup__form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 150px solid rgb(255, 255, 255);
+    background-color: rgb(255, 255, 255);
+    border-radius: 1em;
+}
+
+p {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.container {
+    background-image: url(https://images.unsplash.com/photo-1518655048521-f130df041f66?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    background-size: cover;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-login {
+    background-image: url(https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    background-size: cover;
+  
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+input[type=text]  {
+    padding:10px;
+    margin:10px 0; 
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.075);
+
+}
+
+  input[type=password]  {
+    padding:10px;
+    margin:10px 0; 
+    border:0;
+    box-shadow:0 0 15px 4px rgba(0, 0, 0, 0.075);
+    
+
+  }
+
+
+button {
+    /* display:inline-block; */
+    padding:0.5em 3em;
+    border:0.16em solid #e9e9e9;
+    /* margin:0 0.3em 0.3em 0; */
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#3f3f3f;
+    text-align:center;
+    transition: all 0.15s;
+    margin-top: 10%;
+    }
+
+button:hover{
+    color:#3b3434;
+    border-color:#504f4f;
+}
+button:active{
+    color:#BBBBBB;
+    border-color:#585858;
+}
+
+li a {
+    text-decoration: none;
+    font-size: 10px;
+    color:rgb(54, 54, 54);
+}
+
+li {
+    list-style-type: none;
+    margin-top: 10px;
+}
+
+li a:hover {
+    color: rgb(109, 109, 109);
+    text-decoration: underline;
+}
+
+input:hover {
+    background-color:rgb(231, 244, 250);
+}

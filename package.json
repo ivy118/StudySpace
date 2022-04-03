@@ -22,7 +22,7 @@
     "pg": "^8.7.3",
     "postgres": "^1.0.2",
     "react-redux": "^7.2.6",
-    "react-router-dom": "^6.2.1"
+    "react-router-dom": "^6.2.2"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
