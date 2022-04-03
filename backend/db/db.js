@@ -1,7 +1,4 @@
 const pg = require("pg");
-//postgres://cgpagjtj:xnWP_fT9RxbfqgUKKjeZRB2ggoGMeI0z@castor.db.elephantsql.com/cgpagjtj
-//cgpagjtj@castor.db.elephantsql.com
-//psql -h castor.db.elephantsql.com -p 5432 -d cgpagjtj -U cgpagjtj -W
 
 const pool = new pg.Pool({
   user: "cgpagjtj",
@@ -12,5 +9,8 @@ const pool = new pg.Pool({
 });
 
 module.exports = pool;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> cleaned code in db
