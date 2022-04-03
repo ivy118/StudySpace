@@ -9,37 +9,38 @@ const authorization = require("../middleware/authorization");
 router.post("/register", validInfo, async (req, res) => {
   try {
     // 1. Destructure the req.body (name, email, password)
-    const { username, email, password, subjects } = req.body;
+    const { firstname, lastname, email, password } = req.body;
+    const subjects = [];
 
     // 2. Check if user exist (if user exist then throw error)
     const user = await pool.query("SELECT * FROM users WHERE user_email = $1", [
       email,
     ]);
 
+    // if user already exists in database
     if (user.rows.length !== 0) {
-      return res.status(401).send("User already exist"); // Unauthenticated
+      return res.status(401).send(null); // Unauthenticated
     }
 
     // 3. Bcrypt the user password
     const saltRound = 10;
     const salt = await bcrypt.genSalt(saltRound);
     const bcryptPassword = await bcrypt.hash(password, salt);
-    
-    console.log(subjects.length);
 
     // 4. Enter the new user inside our database
     const newUser = await ((subjects.length > 0) ? pool.query(
       "INSERT INTO users (user_name, user_email, user_password, user_subject) VALUES ($1, $2, $3, $4) RETURNING *",
-      [username, email, bcryptPassword, subjects]
+      [firstname+lastname, email, bcryptPassword, subjects]
     ) : pool.query(
       "INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3) RETURNING *",
-      [username, email, bcryptPassword])
+      [firstname+lastname, email, bcryptPassword])
     );
 
     // 5. generating our JWT token
     const token = jwtGenerator(newUser.rows[0].user_id);
     res.json({ token });
   } catch (err) {
+    console.log('hit');
     console.error(err.message);
     res.status(500).send("Server Error");
   }
@@ -83,7 +84,7 @@ router.get("/is-verify", authorization, async (req, res) => {
   try {
     res.json(true);
   } catch (err) {
-    console.log(err.message);
+    console.log("rrr",err.message);
     res.status(500).send("Server Error");
   }
 });

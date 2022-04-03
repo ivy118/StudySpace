@@ -11,6 +11,12 @@ const port = 9000;
 /* Middleware */
 app.use(express.json()); // read up on this
 app.use(cors());
+app.use(express.static('public'))
+
+
+app.get('/', (req, res) => {
+  res.send('hello world')
+})
 
 /* Routes */
 // Register and Login routes

@@ -1,0 +1,83 @@
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(39, 38, 38, 0.6);
+    transition: all .5s;
+    border-style: solid;
+}
+
+select {
+    background-color: #5a5959;
+    color: white;
+    padding: 12px;
+    width: 200px;
+    border: none;
+    font-size: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+    -webkit-appearance: button;
+    appearance: button;
+    outline: none;
+ }
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    
+
+    width: 500px;
+    height: 300px;
+    background-color:white;
+}
+.modal-header {
+    padding: 10px;
+}
+
+.modal-title {
+    margin:0;
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: column; */
+}
+
+
+
+.button {
+    /* display:inline-block; */
+    padding:0.5em 3em;
+    border:0.16em solid #FFFFFF;
+    /* margin:0 0.3em 0.3em 0; */
+    box-sizing: border-box;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-family:'Roboto',sans-serif;
+    font-weight:400;
+    color:#3f3f3f;
+    text-align:center;
+    transition: all 0.15s;
+    position: absolute;
+    /* top: 55%; */
+    /* left: 44%; */
+    }
+
+.button:hover{
+    color:#3b3434;
+    border-color:#504f4f;
+}
+.button:active{
+    color:#BBBBBB;
+    border-color:#585858;
+}
+
+.modal-body select option {
+    padding: 30px;
+  }
