@@ -9,8 +9,5 @@ const pool = new pg.Pool({
 });
 
 module.exports = pool;
-<<<<<<< HEAD
 
 
-=======
->>>>>>> cleaned code in db
