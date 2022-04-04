@@ -30,7 +30,7 @@ export const Signup = () => {
         e.preventDefault();
         dispatch(storeUser([fname,lname, username, email,password]));
 
-        navigate('/home');
+        // navigate('/home');
     }
 
 
