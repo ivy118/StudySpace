@@ -6,48 +6,49 @@ export const userSlice = createSlice({
     initialState: {
         user: null,
         error:  null,
-        communityIn: [],
-        currentCommunityView: []
     },
     reducers: {
         user_login_success: (state, action) => {
             let result = action.payload;
 
-            state.user = {
-                firstname: result[0],
-                lastname: result[1],
+            state = Object.assign(state, {user:{
                 username: result[2],
                 email: result[3],
-                password: result[4],
-                loginStatus: true
-            }
+                loginStatus: true,
+            }}, {error:null})
         },
+
         user_login_failure: (state, action) => {
-            state.error = "Invalid Credentials";
-            
+            state = Object.assign(state, {error: 
+                "Invalid Credentials"
+            })
         }, 
+
         user_logout: (state, action) => {
-            state.user = [];
+            state = Object.assign(state, 
+                {error: null},
+                {user: null}
+            ) 
         },
+
         user_signup_success: (state, action) => {
             let result = action.payload;
 
-            state.user = {
-                firstname: result[0],
-                lastname: result[1],
+            state = Object.assign(state, {user: {
                 username: result[2],
                 email: result[3],
-                password: result[4],
                 loginStatus: true,
-            }
+            }}, {error: null})
         },
 
 
         user_signup_failure: (state) => {
-            state.error = "The email you are using is associated with another account, please login instead or create another account";
-        }
-    }   
-
+            state = Object.assign(state, 
+                {error: "The email you are using is associated with another account."},
+                {user: null}
+            )  
+        } 
+    }
 });
 
 export const verifyUser = (action) => {
@@ -77,14 +78,17 @@ export const storeUser = (action) => {
         email: action[3],
         password: action[4],
       }).then((response)=> {
-          console.log("response in signup", response)
-        if (response.data) {
-            dispatch(user_signup_failure());
-        } else {
+          console.log("response in signup", response.data)
+        //if sign up is successful, store the JWT token in loca storage
+        if (response.data.token) {
+            sessionStorage.setItem('JWTtocken',response.data.token);
             dispatch(user_signup_success(action));
+        } else {
+            console.log("hit here haha")
+            dispatch(user_signup_failure());
         }
       }).catch(function (error) {
-        console.log(error);
+        console.log("here",error);
       });
   }
 }
