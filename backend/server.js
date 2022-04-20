@@ -3,7 +3,11 @@ const cors = require("cors"); // read up on this
 const path = require("path");
 
 const jwtAuth = require("./routes/jwtAuth");
-const dashboard = require("./routes/dashboard");
+// const dashboard = require("./routes/dashboard");
+// const communityModal = require("./routes/communityModal");
+const userCommunityAPIs = require("./routes/userCommunityAPIs");
+const generalCommunityAPIs = require("./routes/generalCommunityAPIs");
+const populateCommunities = require("./utils/populateCommunities");
 
 const app = express();
 const port = 9000;
@@ -17,15 +21,18 @@ app.use(express.static('public'))
 
 
 app.get('/', (req, res) => {
-  res.send('hello world')
-})
+  res.send('Hello World');
+});
+
+app.use('/utils', populateCommunities);
 
 /* Routes */
 // Register and Login routes
 app.use("/auth", jwtAuth);
 
 // Dashboard route
-app.use("/dashboard", dashboard);
+app.use("/user", userCommunityAPIs);
+app.use("/generalCommunity", generalCommunityAPIs);
 
 /* Listening */
 app.listen(port, () => {

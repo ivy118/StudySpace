@@ -9,9 +9,7 @@ const authorization = require("../middleware/authorization");
 router.post("/register", validInfo, async (req, res) => {
   try {
     // 1. Destructure the req.body
-    // const { username, firstname, lastname, email, password } = req.body;
-    const { firstname, lastname, email, password } = req.body;
-    const username = firstname + lastname + Math.floor(Math.random() * 10000).toString();
+    const { username, firstname, lastname, email, password } = req.body;
 
     // 2. Check if user exist (if user exist then throw error)
     const user = await pool.query("SELECT * FROM users WHERE user_name = $1 OR user_email = $2", [

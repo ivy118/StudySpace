@@ -7,6 +7,8 @@ module.exports = async (req, res, next) => {
       "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = $1",
       [subjectTitle]
     );
+    req.subject = subject;
+    next();
   } catch (err) {
     console.err(err.message);
     res.status(500).json("Database Error");
