@@ -24,8 +24,8 @@ router.get("/", authorization, async (req, res) => {
 router.get("/getUsersCommunities", authorization, async (req, res) => {
   try {
     const user = await pool.query(
-      "SELECT user_communities FROM users WHERE user_id = $1",
-      [req.user]
+      "SELECT user_communities FROM users WHERE user_email = $1",
+      [req.email]
     );
     res.json(user.rows[0]);
   } catch (err) {
@@ -35,21 +35,18 @@ router.get("/getUsersCommunities", authorization, async (req, res) => {
 });
 
 /*
-  /getAllCommunities - Get all communities
-  Frontend: get request
-  Backend: array[String] of all communities
- */
-router.get("/getAllCommunities", authorization, async (req, res) => {
-
-});
-
-/*
   /addCommunity - Add communities for the user
   Frontend: a post request, req.body: [email, communityToAdd]
   Backend: posts them into the database
  */
 router.post("/addCommunity", authorization, async (req, res) => {
-
+  try {
+    await pool.query(`UPDATE users SET user_communities = array_append(user_communities, ${req.communityToAdd}) WHERE user_email = ${req.email}`);
+    res.json("Successfully added the community.");
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Server Error");
+  }
 });
 
 module.exports = router;

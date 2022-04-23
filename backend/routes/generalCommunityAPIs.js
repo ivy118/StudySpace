@@ -7,7 +7,14 @@ const pool = require("../db/db");
   Backend: array[String] of all communities
  */
 router.get("/getAllCommunities", async (req, res) => {
-  res.send("Hits");
+  try {
+    const communitiesQuery = await pool.query(`SELECT community_name FROM all_communities`);
+    const communities = communitiesQuery.rows.map((obj) => obj.community_name).sort();
+    res.json(communities);
+  } catch (err) {
+    console.log(err.message);
+    res.status(500).json("Sever Error");
+  }
 });
 
 module.exports = router;
