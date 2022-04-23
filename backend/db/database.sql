@@ -10,13 +10,19 @@ CREATE TABLE users(
     last_name VARCHAR(255) NOT NULL,
     user_email VARCHAR(255) UNIQUE NOT NULL,
     user_password VARCHAR(255) NOT NULL,
-    user_subject TEXT[]
+    user_communities TEXT[]
 );
 
 
----- **Template of the Subjects table
+-- Communities Table and Individual Communities Tables
+CREATE TABLE all_communities (
+    community_id SERIAL PRIMARY KEY,
+    community_name VARCHAR(255) NOT NULL
+);
+
+---- **Template of the Communitiess table
 --- NEED TO RESEARCH ABOUT BYTEA DATA TYPE AND STORING IMAGES
-CREATE TABLE subject_name(
+CREATE TABLE communities_name(
     post_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     post_description TEXT NOT NULL,
@@ -53,7 +59,7 @@ CREATE TABLE chatroom#id(
 -- Event table
 CREATE TABLE events(
     event_id SERIAL PRIMARY KEY,
-    subject TEXT,
+    Communities TEXT,
     title VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
     link VARCHAR(255) NOT NULL,
