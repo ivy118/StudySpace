@@ -14,7 +14,7 @@ const upload = multer({ dest: 'uploads/ '});
  */
 router.post("/addPost", auth, upload.single('image'), storeImage, async (req, res, next) => {
   try {
-    const {username, text, communityName, uploadResultsKey} = req.body;
+    const { username, text, communityName, uploadResultsKey } = req.body;
 
     // Query for user
     const user = await pool.query(
@@ -42,7 +42,7 @@ router.post("/addPost", auth, upload.single('image'), storeImage, async (req, re
  */
 router.delete("/deletePost", auth, deleteImage, async (req, res) => {
   try {
-    const {postId, communityName} = req.body;
+    const { postId, communityName } = req.body;
 
     // Query for post
     const post = await pool.query(`SELECT * FROM ${communityName} WHERE post_id = ${postId}`);
@@ -67,7 +67,7 @@ router.delete("/deletePost", auth, deleteImage, async (req, res) => {
  */
 router.get("/getPost", auth, validateCommunity, async (req, res) => {
   try {
-    const {communityName} = req.body;
+    const { communityName } = req.body;
     const postQuery = await pool.query(`SELECT * FROM ${communityName} ORDER BY post_id DESC LIMIT 10`); 
     const posts = postQuery.rows
     res.json(posts);

@@ -1,5 +1,6 @@
 const pool = require("../db/db");
-/** Checks if the subject is in the database */
+
+/** Checks if the subject is already in the database */
 module.exports = async (req, res, next) => {
   try {
     const { subjectTitle } = req.body;

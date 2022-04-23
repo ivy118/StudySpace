@@ -5,11 +5,10 @@ require("dotenv").config();
 
 const bucketName = process.env.AWS_BUCKET_NAME;
 
-
-
+// Deletes the image stored in S3 if it exists, otherwise it goes to the next middleware
 module.exports = async (req, res, next) => {
   try {
-    const {postImageKey} = req.body;
+    const { postImageKey } = req.body;
 
     // If the file doens't exist, skip this middleware
     if (postImageKey !== undefined) {
@@ -20,7 +19,7 @@ module.exports = async (req, res, next) => {
       };
       await myS3Instance.deleteObject(s3DeleteParams).promise();
     }
-    
+
     next();
   } catch (err) {
     console.log(err.message);
