@@ -20,7 +20,8 @@ router.post("/register", validInfo, async (req, res) => {
 
     // If user already exists in database
     if (user.rows.length !== 0) {
-      return res.status(401).json(`This ${user.rows[0].user_name === username ? "username" : "email address"} is already in use.`);
+      res.status(200).send(`This ${user.rows[0].user_name === username ? "username" : "email address"} is already in use.`);
+      return;
     }
 
     // 3. Bcrypt the user password
@@ -56,7 +57,7 @@ router.post("/login", validInfo, async (req, res) => {
     ]);
 
     if (user.rows.length === 0) {
-      return res.status(401).json("Password or email is incorrect.");
+      return res.status(200).json("Password or email is incorrect.");
     }
 
     // 3. Check if incoming password is the same the database password
@@ -65,7 +66,7 @@ router.post("/login", validInfo, async (req, res) => {
       user.rows[0].user_password
     );
     if (!validPassword) {
-      return res.status(401).json("Password or Email is incorrect");
+      return res.status(200).json("Password or Email is incorrect");
     }
 
     // 4. Give the JWT Token

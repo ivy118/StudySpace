@@ -11,6 +11,9 @@ import ReactDOM from 'react-dom';
 import Sidebar from './component/Sidebar';
 import Home from './screen/Home';
 import {Login} from './screen/Login';
+import TopBar from './component/TopBar';
+import Textbox from './component/Textbox'
+import Post from './component/Post';
 
 function App() {
   return (
@@ -19,7 +22,9 @@ function App() {
       <Routes>
         <Route path="/signup" element={<Signup/>} />
         <Route path="/login" element={<Login/>} />
-        <Route path="/home/" element={<Home/>} />
+        <Route path="/home" element={<Home/>} />
+        <Route path="/top" element={<Post/>} />
+        <Route path="/side" element={<Sidebar/>} />
 
       </Routes>
     </BrowserRouter>

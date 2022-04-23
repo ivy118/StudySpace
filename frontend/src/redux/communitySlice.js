@@ -7,36 +7,46 @@ const axios = require('axios');
 export const communitySlice = createSlice({
     name: 'community',
     initialState: {
-        community: [],
-        error: '',
+        userCommunity: [],
+        communityInView: null,
+        error: null,
+
     },
     reducers: {
         add_community: (state, action) => {
-            const response = API.post('/add-community', {
-                username: action.payload[0],
-                community: action.payload[1]
+            const response = API.post('/addCommunity', {
+                email: action.payload[0],
+                communityToAdd: action.payload[1]
             }).then((response) => {
                 // if successful, change state;
                 if (response.data) {
-                    state.community.push(action.payload[1]);
+                    return {...state, userCommunity: [action.payload[1], ...state.userCommunity]};
                 } else {
-                    state.error = response.data;
+                    return Object.assign(state, {error: response.data})
                 }
             })
-
-
         },
         remove_community: (state, action) => {
+             return state.userCommunity.filter(com => com !== state.communityInView);
 
             
+        },
+        change_community_in_view: (state, action) => {
+            let currentCommunity = action.payload;
+            return Object.assign(state, {communityInView: action.payload});
+        },
+
+        community_load_failure:  (state, action) => {
+            
+
         }
     }   
 
 });
 
 
-
-
 export const { add_community, remove_community } = communitySlice.actions;
 
 export default communitySlice.reducer;
+
+

@@ -1,4 +1,36 @@
-.modal-active {
+/* .modal-active {
     opacity: 0.3;
     
+} */
+
+
+
+
+
+
+
+
+.homeContainer{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 4fr;
+    grid-template-rows: repeat(9, 1fr);
+    gap: 0
+
+}
+
+.post {
+    grid-row: 2/9;
+    grid-column: 2/5
+}
+
+
+.sidebar {
+    grid-row: 1 / 4;
+    grid-column: 1;
+}
+
+.textbox {
+    grid-row: 1;
+    grid-column: 2/5;
 }
