@@ -7,6 +7,7 @@ const jwtAuth = require("./routes/jwtAuth");
 // const communityModal = require("./routes/communityModal");
 const userCommunityAPIs = require("./routes/userCommunityAPIs");
 const generalCommunityAPIs = require("./routes/generalCommunityAPIs");
+const postAPIs = require("./routes/post");
 const populateCommunities = require("./utils/populateCommunities");
 
 const app = express();
@@ -33,6 +34,8 @@ app.use("/auth", jwtAuth);
 // Dashboard route
 app.use("/user", userCommunityAPIs);
 app.use("/generalCommunity", generalCommunityAPIs);
+app.use("/post", postAPIs);
+
 
 /* Listening */
 app.listen(port, () => {
