@@ -21,7 +21,7 @@ router.post("/create-table-all-communities", async (req, res) => {
 
         // Populate the table with each community
         for (community of allCommunities) {
-            const course = await pool.query(`SELECT '${community}' from all_communities`);
+            const course = await pool.query(`SELECT * from all_communities WHERE community_name = '${community}'`);
 
             // Check to see if the course is inside the 'all_communities' table
             if (course.rowCount  === 0) {
@@ -79,10 +79,10 @@ router.post("/create-community-tables", async (req, res) => {
         // Iterate through all the dummy communities 
         for (community of allCommunities) {
             // 
-            const course = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ${community}`);
+            const communityQuery = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ${community}`);
             
             //
-            if (course.rows.length === 0) {
+            if (communityQuery.rows.length === 0) {
                 await pool.query(`CREATE TABLE ${community} (\
                     post_id SERIAL PRIMARY KEY,\
                     user_id INT NOT NULL,\
