@@ -36,7 +36,7 @@ router.post("/create-table-all-communities", async (req, res) => {
     }
 });
 
-// Populate the users with random communities
+// Populate the users with random communities, 
 router.put("/populate-users-with-random-communities", async (req, res) => {
     try {
         const users = await pool.query(`SELECT * FROM users`);

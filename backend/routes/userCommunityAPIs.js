@@ -21,12 +21,14 @@ router.get("/", authorization, async (req, res) => {
   Frontend: posts request, req.body = email
   Backend: array[String] all communities this user is in, sort them alphabetically
  */
-router.get("/getUsersCommunities", authorization, async (req, res) => {
+router.post("/getUsersCommunities", authorization, async (req, res) => {
   try {
+    console.log(req.body.email, "email")
     const user = await pool.query(
       "SELECT user_communities FROM users WHERE user_email = $1",
-      [req.email]
+      [req.body.email]
     );
+    console.log(user)
     res.json(user.rows[0]);
   } catch (err) {
     console.error(err.message);

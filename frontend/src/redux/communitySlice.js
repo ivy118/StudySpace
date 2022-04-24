@@ -1,14 +1,14 @@
 import {createSlice} from '@reduxjs/toolkit';
 import API from '../api';
-import store from './store';
-const axios = require('axios');
 
-
+const getDefaultCommunity = () => {
+    
+}
 export const communitySlice = createSlice({
     name: 'community',
     initialState: {
         userCommunity: [],
-        communityInView: null,
+        communityInView: getDefaultCommunity(),
         error: null,
 
     },
@@ -17,12 +17,18 @@ export const communitySlice = createSlice({
             const response = API.post('/addCommunity', {
                 email: action.payload[0],
                 communityToAdd: action.payload[1]
-            }).then((response) => {
-                // if successful, change state;
+            },  {
+                headers: {
+                  'Content-Type': 'application/json',
+                  'token': `${localStorage.getItem('JWTtoken')}`
+                  }
+                } 
+            ).then((response) => {
+                // if successful, call getCommunity again!
                 if (response.data) {
-                    return {...state, userCommunity: [action.payload[1], ...state.userCommunity]};
+                    state.userCommunity.push(action.payload[1]); 
                 } else {
-                    return Object.assign(state, {error: response.data})
+                    state.error = "something is wrong"
                 }
             })
         },
@@ -39,14 +45,16 @@ export const communitySlice = createSlice({
         community_load_failure:  (state, action) => {
             
 
+        }, 
+        getAllCommunities: (state, action) => {
+            
         }
-    }   
+    }
 
 });
 
 
 export const { add_community, remove_community } = communitySlice.actions;
-
 export default communitySlice.reducer;
 
 

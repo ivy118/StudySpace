@@ -101,17 +101,26 @@ import Topbar from "../component/TopBar"
 import Sidebar from "../component/Sidebar";
 import Post from "../component/Post";
 import Textbox from "../component/Textbox";
-import "./Home.css"
+import Modal from "../component/Modal";
+import "./Home.css";
+import store from "../redux/store";
+import React, { useEffect, useState } from "react";
+import {openModal, closeModal, changeModal } from '../redux/modalSlice';
+import {useSelector} from 'react-redux';
 
-export default function Home() {
 
+export default function Home(props) {
+
+  //here is where modal state and reducers should matter;
+  const appearace = useSelector(changeModal);
 
   return (
     <>
-      <Topbar />
+      <Topbar open={openModal} />
       <div className="homeContainer">
         <Textbox className="textbox"/>
         <Sidebar className="sidebar"/>
+        {appearace ? <Modal  close={closeModal} /> : ''}
         <Post clasName="post"/>
       </div>
     </>

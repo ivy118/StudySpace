@@ -5,8 +5,20 @@ import './Topbar.css';
 import PersonIcon from '@material-ui/icons/Person';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SendIcon from '@material-ui/icons/Send';
+import Modal from './Modal';
+import store from '../redux/store'
+// import { openModal, closeModal } from '../redux/modalSlice';
 
-const TopBar = () => {
+const TopBar = (props) => {
+  const dispatch = useDispatch();
+
+
+  const addCommunityHandler = () => {
+    // change state of modal
+    dispatch(props.open())
+    // open modal
+    
+  }
     return (
         <div className="topbarContainer">
           <div className="topbarLeft">
@@ -20,7 +32,8 @@ const TopBar = () => {
                 <span className="topbarIconBadge">1</span>
               </div>
               <div className="topbarIconItem">
-                <AddBoxIcon className="icons"/>
+                <AddBoxIcon className="icons" onClick = {addCommunityHandler}>
+                </AddBoxIcon>
                 <span className="topbarIconBadge">2</span>
               </div>
               <div className="topbarIconItem">

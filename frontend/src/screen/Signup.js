@@ -3,9 +3,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     storeUser
-} from '../redux/userSlice';
+} from '../redux/loginOrSignupSlice';
 
-import userSelector from '../redux/userSlice'
+import userSelector from '../redux/loginOrSignupSlice'
 import store from '../redux/store';
 import './signup.css';
 import {
@@ -33,14 +33,14 @@ export const Signup = () => {
 
         await dispatch(storeUser([fname,lname, username, email,password]));
 
-        let currState = store.getState().user.error;
+        let currState = store.getState().loginSignup.error;
         if (currState) {
             setErrorMessage(currState);
         } else {
             navigate('/home');
+
         }
     }
-
 
     return (
     <div className="container">

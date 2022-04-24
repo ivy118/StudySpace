@@ -2,15 +2,35 @@ import React, {useState, useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import store from '../redux/store';
 import "./Sidebar.css";
+import { useDispatch } from 'react-redux';
 import FunctionsIcon from '@material-ui/icons/Functions';
+import communitySlice from '../redux/communitySlice';
+import { add_community, remove_community } from '../redux/communitySlice';
+import API from '../api';
 
-const Sidebar = () => {
 
-    useEffect(() =>
+export const Sidebar = () => {
 
-        const fetchCommunity = () => {
-            
-        },[]);
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await API.post("/user/getUsersCommunities", {
+            email: localStorage.getItem("email")
+          },
+          {
+          headers: {
+            'Content-Type': 'application/json',
+            'token': `${localStorage.getItem('JWTtoken')}`
+            }
+          });
+          console.log('responseincommunity', response)
+        } catch (err) {
+          console.log(err)
+        }
+      };
+
+      fetchData();
+    }, [])
 
   return (
     <div className="sidebar">

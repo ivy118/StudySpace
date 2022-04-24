@@ -14,8 +14,9 @@
 }
 
 select {
-    background-color: #5a5959;
-    color: white;
+    background-color: #d6edf2;
+    color: rgb(0, 0, 0);
+    font-size: 4x;
     padding: 12px;
     width: 200px;
     border: none;
@@ -30,43 +31,32 @@ select {
     display: flex;
     flex-direction: column;
     
-
     width: 500px;
-    height: 300px;
-    background-color:white;
-}
-.modal-header {
-    padding: 10px;
+    height: 280px;
+    background-color:rgb(245, 231, 242);
 }
 
-.modal-title {
-    margin:0;
-}
 
 .modal-body {
     display: flex;
     flex-direction: column;
-    /* justify-content: column; */
-}
+    align-items: center;
 
-
+};
 
 .button {
-    /* display:inline-block; */
     padding:0.5em 3em;
-    border:0.16em solid #FFFFFF;
-    /* margin:0 0.3em 0.3em 0; */
+    border:0.16em solid #ffffff;
     box-sizing: border-box;
     text-decoration:none;
     text-transform:uppercase;
     font-family:'Roboto',sans-serif;
     font-weight:400;
-    color:#3f3f3f;
+    color:#2c2c2c;
     text-align:center;
     transition: all 0.15s;
-    position: absolute;
-    /* top: 55%; */
-    /* left: 44%; */
+    background-color: rgb(255, 255, 255);
+    margin-top: 3%;
     }
 
 .button:hover{
@@ -80,4 +70,20 @@ select {
 
 .modal-body select option {
     padding: 30px;
+    font-size: 6px;;
   }
+
+hr {
+    margin: 0;
+}
+
+
+.modal-footer {
+    padding: 3px;
+    justify-content: center;
+}
+
+.modal-title {
+    font-size: 15px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}

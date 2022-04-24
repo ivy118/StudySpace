@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
     verifyUser
-} from '../redux/userSlice';
+} from '../redux/loginOrSignupSlice';
 
 import store from '../redux/store';
 import './signup.css';
@@ -15,20 +15,18 @@ import {
   } from "react-router-dom";
 
 
-
 export const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [error, setErrorMessage] = useState("");
 
     const loginHandler = async (e) => {
         e.preventDefault();
         await dispatch(verifyUser([email,password]));
 
-        let currState = store.getState().user.error;
+        let currState = store.getState().loginSignup.error;
 
         if (currState) {
             setErrorMessage(currState);
