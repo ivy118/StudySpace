@@ -78,14 +78,14 @@ router.post("/create-community-tables", async (req, res) => {
     try {
         // Iterate through all the dummy communities 
         for (community of allCommunities) {
-            // 
-            const communityQuery = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = ${community}`);
+            // Check if the community exists
+            const communityQuery = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${community}'`);
             
-            //
             if (communityQuery.rows.length === 0) {
                 await pool.query(`CREATE TABLE ${community} (\
                     post_id SERIAL PRIMARY KEY,\
                     user_id INT NOT NULL,\
+                    post_image_key VARCHAR(255), \
                     post_description TEXT NOT NULL,\
                     created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),\
                     replies TEXT[],\
@@ -97,6 +97,22 @@ router.post("/create-community-tables", async (req, res) => {
         
         // 
         res.send("Successfully created all communty tables.");
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json("Server Error");
+    }
+});
+
+// DELETES all tables for all the Communities
+router.delete("/delete-community-tables", async (req, res) => {
+    try {
+        for (community of allCommunities) {
+            const communityQuery = await pool.query(`SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${community}'`);
+            if (communityQuery.rows.length !== 0) {
+                await pool.query(`DROP TABLE ${community};`);
+            }
+        }
+        res.send("Successfully deleted all community tables.");
     } catch (err) {
         console.log(err.message);
         res.status(500).json("Server Error");

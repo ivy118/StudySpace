@@ -6,7 +6,7 @@ const validInfo = require("../middleware/validInfo");
 const authorization = require("../middleware/authorization");
 
 /* Registering */
-router.post("/register", validInfo, async (req, res) => {
+router.post("/", validInfo, async (req, res) => {
   try {
     // 1. Destructure the req.body
     const { username, firstname, lastname, email, password } = req.body;
@@ -23,7 +23,7 @@ router.post("/register", validInfo, async (req, res) => {
     }
 
     // 3. Bcrypt the user password
-    const saltRound = 10;
+    const saltRound = 10;register
     const salt = await bcrypt.genSalt(saltRound);
     const bcryptPassword = await bcrypt.hash(password, salt);
 

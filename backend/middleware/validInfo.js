@@ -1,6 +1,6 @@
+// Does a simple regex check on the incoming email and the email/password fields are not empty
 module.exports = function (req, res, next) {
     const { firstname, lastname, email, password } = req.body;
-  
     function validEmail(userEmail) {
       return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(userEmail);
     }

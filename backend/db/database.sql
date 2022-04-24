@@ -26,7 +26,7 @@ CREATE TABLE communities_name(
     post_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     post_description TEXT NOT NULL,
-    post_image BYTEA,
+    post_image_key VARCHAR(255), 
     created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     replies TEXT[],
     FOREIGN KEY(user_id)

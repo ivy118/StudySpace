@@ -23,16 +23,13 @@ router.get("/", authorization, async (req, res) => {
  */
 router.post("/getUsersCommunities", authorization, async (req, res) => {
   try {
-    console.log(req.body.email, "email")
-    const user = await pool.query(
-      "SELECT user_communities FROM users WHERE user_email = $1",
-      [req.body.email]
-    );
-    console.log(user)
-    res.json(user.rows[0]);
+    const { email } = req.body;
+    const user = await pool.query(`SELECT user_communities FROM users WHERE user_email = ${email}`);
+    const userCommunities = user.rows[0];
+    res.json(userCommunities);
   } catch (err) {
     console.error(err.message);
-    res.status(500).json("Server Error");
+    res.status(500).json("Server Error at getUsersCommunities route in userCommuntyAPIs.js.");
   }
 });
 
@@ -43,11 +40,12 @@ router.post("/getUsersCommunities", authorization, async (req, res) => {
  */
 router.post("/addCommunity", authorization, async (req, res) => {
   try {
-    await pool.query(`UPDATE users SET user_communities = array_append(user_communities, ${req.communityToAdd}) WHERE user_email = ${req.email}`);
+    const { communityToAdd, email } = req.body;
+    await pool.query(`UPDATE users SET user_communities = array_append(user_communities, ${communityToAdd}) WHERE user_email = ${email}`);
     res.json("Successfully added the community.");
   } catch (err) {
     console.log(err.message);
-    res.status(500).json("Server Error");
+    res.status(500).json("Server Error at addCommunity route in userCommunityAPIs.js.");
   }
 });
 
