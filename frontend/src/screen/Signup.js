@@ -40,6 +40,7 @@ export const Signup = () => {
             navigate('/home');
 
         }
+
     }
 
     return (

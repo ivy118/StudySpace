@@ -23,12 +23,10 @@ export const Sidebar = () => {
             'token': `${localStorage.getItem('JWTtoken')}`
             }
           });
-          console.log('responseincommunity', response)
         } catch (err) {
-          console.log(err)
+          console.log(err, "erorr in acquiring personl communities") 
         }
       };
-
       fetchData();
     }, [])
 

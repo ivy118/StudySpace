@@ -58,15 +58,14 @@ export const verifyUser = (action) => {
             updateLocalStorage(true, action[0], action[1]);
         }
       }).catch(function (error) {
-        console.log(error, "erorr in login reducer");
+        console.log(error, "erorr in /login ");
       });
   }
 }
 
-
 export const storeUser = (action) => {
     return async (dispatch) => {
-        const response = await API.post('/auth/register', {
+        const response = await API.post('/auth/signup', {
         firstname: action[0],
         lastname: action[1],
         username: action[2],
@@ -83,6 +82,7 @@ export const storeUser = (action) => {
             await dispatch(user_signup_failure(response.data));
             updateLocalStorage(false);
         }
+        console.log(response.data.token, "JWT")
       }).catch(function (error) {
         console.log("error in /signup,", error.response.data);
       });

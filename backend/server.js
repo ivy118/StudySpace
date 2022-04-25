@@ -20,11 +20,6 @@ app.use(express.json()); // read up on this
 app.use(cors());
 app.use(express.static('public'))
 
-
-app.get('/', (req, res) => {
-  res.send('Hello World');
-});
-
 app.use('/utils', populateCommunities);
 
 /* Routes */
@@ -33,7 +28,7 @@ app.use("/auth", jwtAuth);
 
 // Dashboard route
 app.use("/user", userCommunityAPIs);
-app.use("/generalCommunity", generalCommunityAPIs);
+app.use("/", generalCommunityAPIs);
 app.use("/post", postAPIs);
 
 
