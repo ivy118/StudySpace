@@ -1,14 +1,18 @@
 
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from "./userSlice";
+import loginOrSignupReducer from "./loginOrSignupSlice";
 import communityReducer from "./communitySlice";
 import postReducer from "./postSlice";
+import modalReducer from "./modalSlice";
 
 
-export default configureStore({
+const store = configureStore({
     reducer: {
-        user: userReducer,
+        loginSignup: loginOrSignupReducer,
         community: communityReducer,
-        post: postReducer
+        post: postReducer,
+        modal: modalReducer
     }
-})
+});
+
+export default store;

@@ -6,7 +6,7 @@ const validInfo = require("../middleware/validInfo");
 const authorization = require("../middleware/authorization");
 
 /* Registering */
-router.post("/", validInfo, async (req, res) => {
+router.post("/signup", validInfo, async (req, res) => {
   try {
     // 1. Destructure the req.body
     const { username, firstname, lastname, email, password } = req.body;
@@ -18,11 +18,11 @@ router.post("/", validInfo, async (req, res) => {
 
     // If user already exists in database
     if (user.rows.length !== 0) {
-      return res.status(401).json(`This ${user.rows[0].user_name === username ? "username" : "email address"} is already in use.`);
+      res.status(200).send(`This ${user.rows[0].user_name === username ? "username" : "email address"} is already in use.`);
     }
 
     // 3. Bcrypt the user password
-    const saltRound = 10;register
+    const saltRound = 10; 
     const salt = await bcrypt.genSalt(saltRound);
     const bcryptPassword = await bcrypt.hash(password, salt);
 
@@ -54,7 +54,7 @@ router.post("/login", validInfo, async (req, res) => {
     ]);
 
     if (user.rows.length === 0) {
-      return res.status(401).json("Password or email is incorrect.");
+      return res.status(200).json("Password or email is incorrect.");
     }
 
     // 3. Check if incoming password is the same the database password
@@ -63,7 +63,7 @@ router.post("/login", validInfo, async (req, res) => {
       user.rows[0].user_password
     );
     if (!validPassword) {
-      return res.status(401).json("Password or Email is incorrect");
+      return res.status(200).json("Password or Email is incorrect");
     }
 
     // 4. Give the JWT Token
@@ -71,7 +71,7 @@ router.post("/login", validInfo, async (req, res) => {
     res.json({ token });
   } catch (err) {
     console.log(err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send("Server Error at jwtGenerator, jwtAuth, line 75");
   }
 });
 
@@ -80,7 +80,7 @@ router.get("/is-verify", authorization, async (req, res) => {
     res.json(true);
   } catch (err) {
     console.log("rrr",err.message);
-    res.status(500).send("Server Error");
+    res.status(500).send("Server Error in is-verify");
   }
 });
 

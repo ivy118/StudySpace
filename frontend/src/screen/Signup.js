@@ -3,8 +3,9 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
     storeUser
-} from '../redux/userSlice';
+} from '../redux/loginOrSignupSlice';
 
+import userSelector from '../redux/loginOrSignupSlice'
 import store from '../redux/store';
 import './signup.css';
 import {
@@ -25,14 +26,22 @@ export const Signup = () => {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setErrorMessage] = useState();
 
-    const signupHandler = (e) => {
+    const signupHandler = async (e) => {
         e.preventDefault();
-        dispatch(storeUser([fname,lname, username, email,password]));
 
-        // navigate('/home');
+        await dispatch(storeUser([fname,lname, username, email,password]));
+
+        let currState = store.getState().loginSignup.error;
+        if (currState) {
+            setErrorMessage(currState);
+        } else {
+            navigate('/home');
+
+        }
+
     }
-
 
     return (
     <div className="container">
@@ -53,6 +62,7 @@ export const Signup = () => {
         <label htmlFor="password"></label>
         <input type="password" id="password" name="password"  placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/> 
 
+        <p className="err-msg">{error}</p>
         <button type="submit">
             <Link to="/Home"></Link>Sign Up</button> 
         <ul>

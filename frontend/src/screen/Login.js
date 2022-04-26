@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
     verifyUser
-} from '../redux/userSlice';
+} from '../redux/loginOrSignupSlice';
 
 import store from '../redux/store';
 import './signup.css';
@@ -11,18 +11,28 @@ import {
     Routes,
     Route,
     Link,
+    useNavigate
   } from "react-router-dom";
-
 
 
 export const Login = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [error, setErrorMessage] = useState("");
 
-    const loginHandler = (e) => {
+    const loginHandler = async (e) => {
         e.preventDefault();
-        dispatch(verifyUser([email,password]));
+        await dispatch(verifyUser([email,password]));
+
+        let currState = store.getState().loginSignup.error;
+
+        if (currState) {
+            setErrorMessage(currState);
+        } else {
+            navigate('/home')
+        }
     }
 
     return (
@@ -35,7 +45,7 @@ export const Login = () => {
 
         <label htmlFor="password"></label>
         <input type="password" id="password" name="password"  placeholder="Password" value={password} onChange={e => setPassword(e.target.value)}/> 
-
+        <p className="err-msg">{error}</p>
         <button type="submit" >Login</button> 
         <ul>
             <li>
