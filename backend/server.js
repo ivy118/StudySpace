@@ -1,8 +1,8 @@
 const express = require("express");
 const cors = require("cors"); // read up on this
 const path = require("path");
-const { createServer } = require("http");
-const socketIO = require("socket.io");
+// const { createServer } = require("http");
+// const { Server } = require("socket.io");
 
 const jwtAuth = require("./routes/jwtAuth");
 // const dashboard = require("./routes/dashboard");
@@ -10,17 +10,20 @@ const jwtAuth = require("./routes/jwtAuth");
 const userCommunityAPIs = require("./routes/userCommunityAPIs");
 const generalCommunityAPIs = require("./routes/generalCommunityAPIs");
 const postAPIs = require("./routes/post");
-const chatRoom = require("./routes/chatRoom");
-const populateCommunities = require("./utils/populateCommunities");
+const messagesAPIs = require("./routes/messages");
+const utils = require("./utils/utils");
 
 const app = express();
-const httpServer = createServer(app);
-const io = new socketIO(httpServer, { cors: { origin: "*" } });
 const port = 9000;
+
+// /* Initalize socket.io server  */
+// const socketPort = 3000;
+// // const httpServer = createServer(app);
+// const io = new Server(socketPort, { cors: { origin: "*" } });
 
 require("dotenv").config();
 
-app.set('socketio', io);
+// app.set('socketio', io);
 // app.use((req, res, next) => {
 //   req.io = io;
 //   return next();
@@ -31,7 +34,7 @@ app.use(express.json()); // read up on this
 app.use(cors({origin: "*"}));
 app.use(express.static('public'))
 
-app.use('/utils', populateCommunities);
+app.use('/utils', utils);
 
 /* Routes */
 // Register and Login routes
@@ -41,6 +44,7 @@ app.use("/auth", jwtAuth);
 app.use("/user", userCommunityAPIs);
 app.use("/", generalCommunityAPIs);
 app.use("/post", postAPIs);
+app.use("/messages", messagesAPIs);
 
 
 /* Listening */

@@ -89,8 +89,8 @@ router.post("/create-community-tables", async (req, res) => {
                     post_description TEXT NOT NULL,\
                     created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),\
                     replies TEXT[],\
-                    FOREIGN KEY(user_id)\
-                    REFERENCES users(user_id)\
+                    PRIMARY KEY (post_id),\
+                    FOREIGN KEY(user_id) REFERENCES users(user_id) ON DELETE cascade ON UPDATE cascade\
                 )`);
             }
         }
@@ -118,5 +118,29 @@ router.delete("/delete-community-tables", async (req, res) => {
         res.status(500).json("Server Error");
     }
 });
+
+
+
+const dummyText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Urna id volutpat lacus laoreet non curabitur gravida arcu. Amet nisl purus in mollis nunc sed. Accumsan tortor posuere ac ut consequat. Eu facilisis sed odio morbi quis commodo odio aenean. Varius quam quisque id diam. Egestas tellus rutrum tellus pellentesque. In iaculis nunc sed augue. Blandit libero volutpat sed cras ornare arcu dui vivamus. Sit amet mattis vulputate enim nulla aliquet porttitor. Aenean euismod elementum nisi quis. Justo laoreet sit amet cursus sit amet dictum. Porta nibh venenatis cras sed felis eget velit aliquet sagittis. Et netus et malesuada fames ac turpis. A lacus vestibulum sed arcu non odio euismod lacinia at. Arcu non sodales neque sodales ut etiam.";
+
+// Populate communities with dummy data
+router.post("/populate-communtiy-with-dummy-data", async (req, res) => {
+    try {
+        // get all the users
+        const userIdQuery = await pool.query(`SELECT user_id FROM users;`);
+        const userIds = userIdQuery.rows.map((row) => row.user_id);
+        // iterate through all the communities
+        for (let i = 0; i < allCommunities.length; i++) {
+            const communtyName = allCommunities[i];
+            const randomUser = userIds[Math.floor(Math.random() * userIds.length)];
+            const text = communtyName + ": " + dummyText;
+            await pool.query(`INSERT INTO ${communtyName} (user_id, post_description) VALUES (${randomUser}, '${text}');`);
+        }
+        res.send("Successfully populated all community tables with dummy data.");
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json("Server Error");
+    }
+})
 
 module.exports = router;
