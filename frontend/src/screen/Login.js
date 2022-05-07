@@ -31,7 +31,9 @@ export const Login = () => {
         if (currState) {
             setErrorMessage(currState);
         } else {
-            navigate('/home')
+
+            
+            navigate(`/home/default`)
         }
     }
 

@@ -2,7 +2,7 @@ const pool = require("../db/db");
 const router = require("express").Router();
 
 // Random Community Data
-const allCommunities = ['algorithms', 'artificial_intelligence', 'calculus', 'computer_architecture', 'computer_science_theory', 'computer_theory', 'data_logic', 'data_management', 'design_physics', 'device_utilization', 'electronic_design', 'files_and_databases', 'information_management', 'logic_design', 'machine_language', 'network_fundamentals', 'operating_systems', 'programming_languages', 'statistics'];
+const allCommunities = ['algorithms', 'artificial_intelligence', 'calculus', 'computer_architect', 'computer_science_theory', 'computer_theory', 'data_logic', 'data_management', 'design_physics', 'device_utilization', 'electronic_design', 'files_and_databases', 'information_management', 'logic_design', 'machine_language', 'network_fundamentals', 'operating_systems', 'programming_language', 'statistics'];
 
 // Creates a table for all the communities all the tables
 router.post("/create-table-all-communities", async (req, res) => {

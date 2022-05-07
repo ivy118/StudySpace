@@ -39,21 +39,13 @@
 
 
 
-
-
-
-
-
-
-
-
-
   .share {
-    width: 100%;
+    width:auto;
     border-radius: 10px;
     -webkit-box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
     box-shadow: 0px 0px 16px -8px rgba(0, 0, 0, 0.68);
   }
+  
   
   .shareWrapper {
     padding: 10px;
@@ -70,7 +62,7 @@
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 10px;
+    margin: 10px;
   }
   
   .shareInput {
@@ -83,7 +75,8 @@
   }
   
   .shareHr {
-    margin: 35px;
+    margin-left: 60px;
+    margin-right: 60px;
   }
   
   .shareBottom {
@@ -156,4 +149,10 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+  }
+
+  p {
+    color: red;
+    font-size: 12px;
+    text-align: center;
   }

@@ -1,187 +1,65 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
-import store from '../redux/store';
 import "./Sidebar.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import FunctionsIcon from '@material-ui/icons/Functions';
 import communitySlice from '../redux/communitySlice';
-import { add_community, remove_community } from '../redux/communitySlice';
-import API from '../api';
+import {remove_community, getPersonalCommunity, change_community_view} from '../redux/communitySlice';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import store from '../redux/store'
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import {get_all_post} from '../redux/postSlice';
+import {converting} from '../convertCommunityName';
+import { useNavigate } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+} from "react-router-dom";
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 
 export const Sidebar = () => {
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await API.post("/user/getUsersCommunities", {
-            email: localStorage.getItem("email")
-          },
-          {
-          headers: {
-            'Content-Type': 'application/json',
-            'token': `${localStorage.getItem('JWTtoken')}`
-            }
-          });
-        } catch (err) {
-          console.log(err, "erorr in acquiring personl communities") 
-        }
-      };
-      fetchData();
-    }, [])
+  const dispatch = useDispatch();
+  let personalCommunity = useSelector(state => state.community.userCommunity);
+  const navigate = useNavigate();
 
+
+  useEffect(() => {
+      const fetchData = async () => {
+        await dispatch(getPersonalCommunity(localStorage.getItem('email')));
+      };
+
+      fetchData();
+
+      }, 
+    []);
+
+
+     const switchCommunityHandler = async (community) => {
+      await dispatch(change_community_view(community));
+      await dispatch(get_all_post(converting(community)));
+
+      window.scrollTo(0, 0);
+      // navigate('/Loading');
+      // setTimeout(() => { navigate(`/home/${community}`)}, 0);
+     }
+
+  let number = 0;
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
         <ul className="sidebarList">
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li  className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
-          <li className="sidebarListItem">
-            <FunctionsIcon className="sidebarIcon" />
-            <span className="sidebarListItemText">Math</span>
-          </li>
+          {personalCommunity ? personalCommunity.map(x => <Link to={`/home/${converting(x)}`} key={number++} className="link"> <li className="sidebarListItem" key={number++} onClick={() => switchCommunityHandler(x)}>
+            {number % 2 === 0 ? <ChevronRightIcon className="sidebarIcon" />: <ChevronRightIcon className="sidebarIcon" />}
+            <span className="sidebarListItemText">{x}</span> <div><DeleteForeverIcon /> </div>
+          </li></Link>): ''}
         </ul>
-        <button className="sidebarButton">Show More</button>
-
+        {personalCommunity ? <button className="sidebarButton">Show More</button> : <p className="warn">Start Your Journey Now by Adding Your First Community</p>}
       </div>
     </div>
   );
 }
-
-
 export default Sidebar;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function Sidebar(props) {
-//     const [sidebar, setSidebar] = useState(false);
-
-
-//     const showSidebar = () => {
-//         setSidebar(!sidebar);
-//     }
-
-//     const modalHandler = () => {
-//         props.changeModalStatus(!props.currentModelStatus);
-//     }
-//     return (
-//     <div className="Navbar-container">
-//         <nav className={ sidebar ? 'nav-menu nm-active': 'nav-menu' }>
-
-//         <div className="toggle-bar">
-//             <Link to="#" className={sidebar ? "menu-bars active": "menu-bars"}>
-//                 <FaIcons.FaBars onClick={showSidebar}/>
-
-//             </Link>
-//         </div>
-        
-//         {sidebar ? 
-//         <ul className="menu-list">
-//         <li className="community-link">
-//             <Link to="#">
-//                 Dashboard
-//             </Link>
-//         </li>
-//         <li className="community-link">
-//             <Link to="#">
-//                 Dashboard
-//             </Link>
-//         </li>
-//         <li className="community-link">
-//             <Link to="#">
-//                 Dashboard
-//             </Link>
-//         </li>
-//         <li className="community-link">
-//             <Link to="#">
-//                 Dashboard
-//             </Link>
-//         </li>
-//         <li className="community-link">
-//             <Link to="#">
-//                 Dashboard
-//             </Link>
-//         </li>
-
-//         <li className="add-community" onClick={modalHandler}>
-        
-//             <i className="fas fa-star text-danger"></i>
-//              Explore Community
-//         </li>
-//         </ul>
-//      : <></>}
-//         </nav> 
-
-//     </div>
-//     )
-// }
-
-// export default Sidebar;
-
-
-
-

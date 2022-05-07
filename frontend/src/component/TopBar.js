@@ -1,13 +1,10 @@
 import React, {useState} from  'react';
 import { useDispatch } from 'react-redux';
-import { Link } from "react-router-dom";
 import './Topbar.css';
 import PersonIcon from '@material-ui/icons/Person';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SendIcon from '@material-ui/icons/Send';
 import Modal from './Modal';
-import store from '../redux/store'
-// import { openModal, closeModal } from '../redux/modalSlice';
 
 const TopBar = (props) => {
   const dispatch = useDispatch();
@@ -15,9 +12,15 @@ const TopBar = (props) => {
 
   const addCommunityHandler = () => {
     // change state of modal
-    dispatch(props.open())
+    dispatch(props.open());
     // open modal
-    
+  }
+
+  const [button, setShowButton] = useState();
+
+  const showButton = () => {
+
+
   }
     return (
         <div className="topbarContainer">
@@ -28,11 +31,12 @@ const TopBar = (props) => {
           <div className="topbarRight">
             <div className="topbarIcons">
               <div className="topbarIconItem">
-              <PersonIcon className="icons"/>
+              <PersonIcon className="icons" onClick={showButton}/>
                 <span className="topbarIconBadge">1</span>
               </div>
               <div className="topbarIconItem">
                 <AddBoxIcon className="icons" onClick = {addCommunityHandler}>
+
                 </AddBoxIcon>
                 <span className="topbarIconBadge">2</span>
               </div>

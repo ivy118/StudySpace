@@ -17,6 +17,7 @@ import {
   } from "react-router-dom";
 
 
+
 export const Signup = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -37,7 +38,8 @@ export const Signup = () => {
         if (currState) {
             setErrorMessage(currState);
         } else {
-            navigate('/home');
+            navigate('/home/data_logic');
+            
 
         }
 
@@ -67,7 +69,7 @@ export const Signup = () => {
             <Link to="/Home"></Link>Sign Up</button> 
         <ul>
             <li>
-                <Link to="/login">
+                <Link to="/">
                     Already have an account? Login instead
                 </Link>
             </li>
