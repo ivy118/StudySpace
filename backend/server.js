@@ -28,7 +28,7 @@ app.use("/auth", jwtAuth);
 
 // Dashboard route
 app.use("/user", userCommunityAPIs);
-app.use("/", generalCommunityAPIs);
+app.use("/all", generalCommunityAPIs);
 app.use("/post", postAPIs);
 
 

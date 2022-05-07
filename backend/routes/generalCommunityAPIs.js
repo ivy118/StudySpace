@@ -8,7 +8,7 @@ const pool = require("../db/db");
  */
 router.get("/getAllCommunities", async (req, res) => {
   try {
-    const communitiesQuery = await pool.query(`SELECT community_name FROM all_communities`);
+    const communitiesQuery = await pool.query(`SELECT community_name FROM all_communities;`);
     const communities = communitiesQuery.rows.map((obj) => obj.community_name).sort();
     res.json(communities);
   } catch (err) {

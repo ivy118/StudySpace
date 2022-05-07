@@ -130,9 +130,29 @@
     align-items: center;
     margin-bottom: 20px;
   }
+
   
+
+  .sidebarListItemText:hover {
+      background: linear-gradient(
+        to right, 
+        rgb(97, 158, 205), 
+        rgb(218, 114, 199)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      transform: scale(1.02);
+      cursor: pointer;
+  }
+  
+  .sidebarListItemText {
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+  }
   .sidebarIcon {
     margin-right: 15px;
+    color:rgb(173, 1, 1);
+    font-size:small;
   }
   
   .sidebarButton {
@@ -153,6 +173,26 @@
     list-style: none;
   }
   
-  .sidebarListItem:hover {
-      color: rgb(177, 162, 162);
+.warn {
+  font-family: 'Times New Roman', Times, serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   }
+
+
+.link {
+  color: black;
+}
+
+.link:hover {
+  text-decoration: none;
+}
+
+.delete-button {
+  display: none
+}
+
+.sidebarListItem:hover {
+  background-color: rgb(220, 220, 220)
+}

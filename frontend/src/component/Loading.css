@@ -1,0 +1,13 @@
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+p {
+    color: black;
+    font-size: 20px;
+}

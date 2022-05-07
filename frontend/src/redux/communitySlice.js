@@ -1,60 +1,81 @@
 import {createSlice} from '@reduxjs/toolkit';
 import API from '../api';
+import store from './store';
 
-const getDefaultCommunity = () => {
-    
-}
 export const communitySlice = createSlice({
     name: 'community',
     initialState: {
-        userCommunity: [],
-        communityInView: getDefaultCommunity(),
-        error: null,
-
+      userCommunity: [],
+      communityInView: null,
+      error: null,
     },
     reducers: {
-        add_community: (state, action) => {
-            const response = API.post('/addCommunity', {
-                email: action.payload[0],
-                communityToAdd: action.payload[1]
-            },  {
-                headers: {
-                  'Content-Type': 'application/json',
-                  'token': `${localStorage.getItem('JWTtoken')}`
-                  }
-                } 
-            ).then((response) => {
-                // if successful, call getCommunity again!
-                if (response.data) {
-                    state.userCommunity.push(action.payload[1]); 
-                } else {
-                    state.error = "something is wrong"
-                }
-            })
+        fill_community: (state, action) => {
+            return { ...state, userCommunity: action.payload, error: null};
+        },
+        append_community: (state, action) => {
+            return { ...state, userCommunity: [...state.userCommunity, action.payload], error: null};
         },
         remove_community: (state, action) => {
              return state.userCommunity.filter(com => com !== state.communityInView);
-
-            
         },
-        change_community_in_view: (state, action) => {
-            let currentCommunity = action.payload;
-            return Object.assign(state, {communityInView: action.payload});
-        },
-
-        community_load_failure:  (state, action) => {
-            
-
+        community_add_failure:  (state, action) => {
+            return { ...state, error: action.payload }
         }, 
-        getAllCommunities: (state, action) => {
-            
+        cancel_community_add: (state, action) => {
+            return {...state, error: null};
+        },
+        change_community_view: (state, action) => {
+            return {...state, communityInView: action.payload};
         }
     }
-
 });
 
+export const getPersonalCommunity = (action) => {
+    return async (dispatch) => {
+    const response = await API.post("/user/getUsersCommunities", {
+            email: action
+        },  
+        { headers: {
+          'Content-Type': 'application/json',
+          'token': `${localStorage.getItem('JWTtoken')}`
+          }
+        } 
+      ).then(async(response)=> {
+        if (response.data) {
+            await dispatch(fill_community(response.data))
+        }
+      }).catch(function (error) {
+        console.log(error, "error in getPersonalCommunity, communitySlice");
+      });
+  }
+}
 
-export const { add_community, remove_community } = communitySlice.actions;
+export const add_community = (action) => {
+    return async (dispatch) => {
+    const response = await API.post("/user/addCommunity", {
+            communityToAdd: action,
+            email: localStorage.getItem("email")
+        },  
+        { headers: {
+          'Content-Type': 'application/json',
+          'token': `${localStorage.getItem('JWTtoken')}`
+          }
+        } 
+      ).then(async (response)=> {
+        if (response.data === "You already belong to this community.") {
+            await dispatch(community_add_failure("You already belong to this community."));
+        } else {         
+            await dispatch(append_community(action));
+        }
+      }).catch(function (error) {
+        console.log(error, "error in add_community, communitySlice");
+      });
+  }
+};
+
+
+export const { append_community, cancel_community_add, remove_community, fill_community, community_add_failure, change_community_view } = communitySlice.actions;
 export default communitySlice.reducer;
 
 
