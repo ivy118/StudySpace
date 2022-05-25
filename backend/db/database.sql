@@ -4,13 +4,15 @@ CREATE DATABASE colabtive;
 
 -- Users table
 CREATE TABLE users(
-    user_id SERIAL PRIMARY KEY,
-    user_name VARCHAR(255) UNIQUE NOT NULL,
+    -- user_id SERIAL PRIMARY KEY,
+    user_name VARCHAR(255) UNIQUE NOT NULL PRIMARY KEY,
     first_name VARCHAR(255) NOT NULL,
     last_name VARCHAR(255) NOT NULL,
+    -- add a profile picture
     user_email VARCHAR(255) UNIQUE NOT NULL,
     user_password VARCHAR(255) NOT NULL,
-    user_communities TEXT[]
+    user_communities TEXT[],
+    user_chats TEXT[],
 );
 
 
@@ -20,23 +22,41 @@ CREATE TABLE all_communities (
     community_name VARCHAR(255) NOT NULL
 );
 
+-- Not sure if its better to have all seperate comment table or one big one
+-- All comments from all communities
+CREATE TABLE community_name_post_comments(
+    comment_id SERIAL PRIMARY KEY,
+    sender VARCHAR(255) NOT NULL,
+    receiver VARCHAR(255),
+    comment TEXT,
+    created_on TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 ---- **Template of the Communitiess table
---- NEED TO RESEARCH ABOUT BYTEA DATA TYPE AND STORING IMAGES
 CREATE TABLE communities_name(
     post_id SERIAL PRIMARY KEY,
     user_id INT NOT NULL,
     post_description TEXT NOT NULL,
+    users_likes_post TEXT[] NOT NULL, 
     post_image_key VARCHAR(255), 
     created_on TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    replies TEXT[],
+    replies INT[],
     FOREIGN KEY(user_id)
-        REFERENCES users(user_id)
+        REFERENCES users(user_id) ON DELETE cascade ON UPDATE cascade
 );
 
 
 -- Chatroom & Chatroom Data
 
 ---- Contains metadata of chatroom tables
+CREATE TABLE chatroom_metadata(
+    chatroom_id SERIAL PRIMARY KEY,
+    chatroom_uuid TEXT UNIQUE,
+    chatroom_name VARCHAR(255) DEFAULT 'Group Chat',
+    -- We can add a profile pic of the group chat
+    users TEXT[]
+);
+
 CREATE TABLE chatroom_info(
     chatroom_id SERIAL PRIMARY KEY,
     user1_id INT NOT NULL,

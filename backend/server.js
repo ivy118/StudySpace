@@ -10,8 +10,12 @@ const jwtAuth = require("./routes/jwtAuth");
 const userCommunityAPIs = require("./routes/userCommunityAPIs");
 const generalCommunityAPIs = require("./routes/generalCommunityAPIs");
 const postAPIs = require("./routes/post");
-const messagesAPIs = require("./routes/messages");
+const chatAPIs = require("./routes/chat");
 const utils = require("./utils/utils");
+
+// const mongooseConnection = require("./db/mongoDB");
+const pool = require("./db/postgreDB");
+const mongoDBPool = require("./db/mongoDB");
 
 const app = express();
 const port = 9000;
@@ -44,7 +48,7 @@ app.use("/auth", jwtAuth);
 app.use("/user", userCommunityAPIs);
 app.use("/all", generalCommunityAPIs);
 app.use("/post", postAPIs);
-app.use("/messages", messagesAPIs);
+app.use("/chat", chatAPIs);
 
 
 /* Listening */
