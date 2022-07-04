@@ -1,15 +1,23 @@
 import React, {useState} from  'react';
-import { useDispatch } from 'react-redux';
 import './ChatTopBar.css';
 import AddCommentIcon from '@material-ui/icons/AddComment';
+import { useNavigate } from 'react-router-dom';
+import store from '../redux/store';
+import {converting} from "../convertCommunityName";
+import { useDispatch, useSelector } from 'react-redux';
 
 const ChatTopBar = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const defaultCommunity = useSelector(state => state.community.userCommunity[0]);
+  const toHomePage = () => {
+      navigate(`/home/${converting(defaultCommunity)}`)
+  }
 
     return (
         <div className="topbarContainer">
           <div className="topbarLeft">
-              <span className="logo">StudySpace</span>
+              <span className="logo" onClick={toHomePage}>StudySpace</span>
           </div>
 
           <div className="topbarRight">

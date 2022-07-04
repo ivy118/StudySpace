@@ -4,19 +4,28 @@ import {add_post} from '../redux/postSlice';
 import store from '../redux/store';
 import './Textbox.css';
 import {converting} from '../convertCommunityName';
+import { useParams } from "react-router-dom";
+
 const Textbox = (props) => {
   const [text, setText] = useState("");
-  const [img, setImg] = useState([]);
   const [err, setErr] = useState();
   const [comm, setComm] = useState();
   const dispatch = useDispatch();
-  const communityView = store.getState().community.communityInView;
-  
+  const [file, setFile] = useState()
+  const [image, setImage] = useState([])
+
+  const communityView = useSelector(state => state.community.communityView);
+  const defaultCommunity = useParams().communityName;
+
+
   useEffect(() => {
     if (communityView) {
       setComm(converting(communityView));
-      setErr("");
       }
+    else {
+      setComm(defaultCommunity);
+    }
+    setErr("");
     }, 
   [communityView]);
 
@@ -24,9 +33,14 @@ const Textbox = (props) => {
     e.preventDefault();
 
     if (comm && text) {
-      await dispatch(add_post([text, comm, null]));
+      const formData = new FormData();
+      formData.append("image", file)
+      formData.append("description", text)
+
+      const result = await dispatch(add_post([text, comm, formData]));
       setText("");
       setErr(null);
+      setImage([result.image, ...image]);
     } else {
       if (!comm) {
         setErr("Please select a community to post in.");
@@ -36,6 +50,11 @@ const Textbox = (props) => {
     }
 
   }
+
+  const fileSelected = event => {
+    const file = event.target.files[0]
+		setFile(file)
+	}
     return (
         <div className="share">
           <div className="shareWrapper">
@@ -59,13 +78,19 @@ const Textbox = (props) => {
             <br></br>
             <br></br>
             <hr className="shareHr" />
-            <input type="file" id="img" name="img" accept="image/*"/>
+            <input type="file" onChange={fileSelected} id="img" name="img" accept="image/*"/>
             <br></br>
             <div className="button-container">
               <p>{err}</p>
               <button className="shareButton" type="submit">
                 Share
               </button>
+
+              {image.map( img => (
+        <div key={img}>
+          <img src={img} alt="j"></img>
+        </div>
+      ))}
 
               </div>
               </form>

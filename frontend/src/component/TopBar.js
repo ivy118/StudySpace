@@ -5,9 +5,11 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import SendIcon from '@material-ui/icons/Send';
 import Modal from './Modal';
+import { useNavigate } from 'react-router-dom';
 
 const TopBar = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
 
   const addCommunityHandler = () => {
@@ -20,7 +22,10 @@ const TopBar = (props) => {
 
   const showButton = () => {
 
+  }
 
+  const toChatPage = () => {
+    navigate("/message/:user")
   }
     return (
         <div className="topbarContainer">
@@ -31,17 +36,13 @@ const TopBar = (props) => {
           <div className="topbarRight">
             <div className="topbarIcons">
               <div className="topbarIconItem">
-              <PersonIcon className="icons" onClick={showButton}/>
-                <span className="topbarIconBadge">1</span>
-              </div>
-              <div className="topbarIconItem">
                 <AddBoxIcon className="icons" onClick = {addCommunityHandler}>
 
                 </AddBoxIcon>
                 <span className="topbarIconBadge">2</span>
               </div>
               <div className="topbarIconItem">
-                <SendIcon className="icons"/>
+                <SendIcon className="icons" onClick={toChatPage}/>
                 <span className="topbarIconBadge">1</span>
               </div>
             </div>

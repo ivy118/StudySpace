@@ -1,41 +1,30 @@
-/* .modal-active {
-    opacity: 0.3;
-    
-} */
-
-
-
-
-
-
-
-
 .homeContainer{
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 5fr;
-    grid-template-rows: 1fr 7fr;
+    grid-template-rows: 1fr 22fr;
     gap: 0;
 
 }
 
 .post {
-    grid-row: 2 / 8;
-    grid-column: 2 / 4
+    grid-row: 2 / 23;
+    grid-column: 2 / 3
 }
 
 
 .sidebar {
-    grid-row: 1 / 8;
+    grid-row: 1 / 23;
     grid-column: 1;
 }
 
 .textbox {
     grid-row: 1;
-    grid-column: 2 / 4;
+    grid-column: 2 / 3;
+    max-height: 100px;
 }
 
 .friend-list {
-    grid-row: 1 / 8;
+    grid-row: 1 / 23;
     grid-column: 5;
 }

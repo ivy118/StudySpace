@@ -26,6 +26,7 @@ const myS3Instance = new S3(config);
 // Uploads the file to S3 and saves the file name and info in the req
 module.exports = async (req, res, next) => {
   try {
+    console.log(req);
     // Get the image file
     const file = req.file;
 

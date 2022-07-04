@@ -24,8 +24,6 @@ export const Sidebar = () => {
 
   const dispatch = useDispatch();
   let personalCommunity = useSelector(state => state.community.userCommunity);
-  const navigate = useNavigate();
-
 
   useEffect(() => {
       const fetchData = async () => {
@@ -43,8 +41,7 @@ export const Sidebar = () => {
       await dispatch(get_all_post(converting(community)));
 
       window.scrollTo(0, 0);
-      // navigate('/Loading');
-      // setTimeout(() => { navigate(`/home/${community}`)}, 0);
+
      }
 
   let number = 0;
@@ -54,7 +51,7 @@ export const Sidebar = () => {
         <ul className="sidebarList">
           {personalCommunity ? personalCommunity.map(x => <Link to={`/home/${converting(x)}`} key={number++} className="link"> <li className="sidebarListItem" key={number++} onClick={() => switchCommunityHandler(x)}>
             {number % 2 === 0 ? <ChevronRightIcon className="sidebarIcon" />: <ChevronRightIcon className="sidebarIcon" />}
-            <span className="sidebarListItemText">{x}</span> <div><DeleteForeverIcon /> </div>
+            <span className="sidebarListItemText">{x}</span> <DeleteForeverIcon />
           </li></Link>): ''}
         </ul>
         {personalCommunity ? <button className="sidebarButton">Show More</button> : <p className="warn">Start Your Journey Now by Adding Your First Community</p>}

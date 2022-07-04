@@ -52,7 +52,6 @@
   
   .postBottom{
       display: flex;
-      align-items: center;
       justify-content: space-between;
   }
   
@@ -122,5 +121,62 @@
   width: 25px;
   height: 25px;
   margin-right: 5px;
+  cursor: pointer;
+}
+
+.like-message {
+  font-size: 8px;
+  font-weight: 500;
+  margin-top: 12px;
+  margin-bottom: 0px;
+  text-align: left
+
+}
+
+.likeIcon:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(81, 81, 81, 0.5);
+}
+
+
+
+.show-more-button {
+  font-size: 11px;
+  padding: 0;
+  text-align: center;
+  margin: 0
+}
+
+.comment-form {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr), 10px;
+  grid-template-columns: repeat(10, 1fr);
+}
+
+
+.shareProfileImg {
+  grid-row-start:    1;
+  grid-row-end:      2;
+  grid-column-start: 1;
+  grid-column-end:   2;
+
+}
+
+.textarea-comment {
+  grid-row-start:    1;
+  grid-row-end:      3;
+  grid-column-start: 2;
+  grid-column-end:   11;
+}
+
+.submit-comment {
+  grid-row-start:    3;
+  grid-row-end:      4;
+  grid-column-start: 10;
+  grid-column-end:   11;
+}
+
+#show-more-button:hover {
+  background-color: rgb(228, 228, 228);
   cursor: pointer;
 }

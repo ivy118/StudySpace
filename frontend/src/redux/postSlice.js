@@ -7,7 +7,7 @@ export const postSlice = createSlice({
     name: 'post',
     initialState: {
         posts: [],
-        error: null
+        error: null,
     },
     reducers: {
         fill_posts: (state, action) => {
@@ -15,8 +15,14 @@ export const postSlice = createSlice({
         },
         get_post_failure: (state, action) => {
             return {...state, error: "Network request failed, please check your connection."}
+        },
+        add_like: (state, action) => {
+
+        },
+        remove_like: (state, action) => {
+
         }
-    }   
+    } 
 
 });
 
@@ -50,8 +56,8 @@ export const add_post = (payload) => {
             uploadResultsKey: payload[2]
         },  
         { headers: {
+          'token': `${localStorage.getItem('JWTtoken')}`,
           'Content-Type': 'application/json',
-          'token': `${localStorage.getItem('JWTtoken')}`
           }
         } 
       ).then(async (response)=> {
@@ -66,7 +72,7 @@ export const add_post = (payload) => {
   }
 }
 
-export const add_likes = (payload) =>  {
+export const toggle_likes = (payload) =>  {
   return async (dispatch) => {
     const response = await API.post("/post/likepost", {
             username: localStorage.getItem("username"), 
@@ -78,7 +84,7 @@ export const add_likes = (payload) =>  {
           }
         } 
       ).then(async (response)=> {
-        if (response.data === "Uploaded post succesfully") {
+        if (response.data === "Already Liked") {
             await dispatch(get_all_post(payload[1]));
         } else {         
             await dispatch(get_post_failure());

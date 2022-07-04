@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
-const PostProfile = () => {
+const PostProfile = (props) => {
 
     return (
         <div className="postTop">
@@ -15,8 +15,8 @@ const PostProfile = () => {
               }
               alt=""
             />
-          <span className="postUsername">Ivy</span>
-          <span className="postDate">Jan 12, 2016</span>
+          <span className="postUsername">{props.user}</span>
+          <span className="postDate">{props.time}</span>
         </div>
       </div>
     )
