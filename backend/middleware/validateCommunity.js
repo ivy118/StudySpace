@@ -1,4 +1,4 @@
-const pool = require("../db/db");
+const pool = require("../db/postgreDB");
 
 // Checks if the communityName exists in the DB
 module.exports = async (req, res, next) => {

@@ -1,4 +1,4 @@
-const pool = require('../db/db');
+const pool = require('../db/postgreDB');
 const myS3Instance = require("../aws-s3/aws-s3");
 
 require("dotenv").config();
