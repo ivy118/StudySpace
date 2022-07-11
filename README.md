@@ -17,19 +17,39 @@ To run this application locally on your computer, you'll need `Git` and `Node.js
 
 Clone this repository
 
-    git clone <LINK>
+    git clone https://github.com/ivy118/StudySpace.git
 
 Go into the repository
 
-    cd <Repository>
+    cd StudySpace
+
+Install all dependicies
+
+    npm install
+    
+Go into the front-end folder 
+
+    cd frontend
 
 Install all dependicies
 
     npm install
 
+Go into the backend-end folder 
+
+    cd ../backend
+
+Install all dependicies
+
+    npm install
+
+Go back to the root directory
+
+    cd ..
+
 Run the app
 
-    npm start
+    npm run dev
 
 ## Built With
 
