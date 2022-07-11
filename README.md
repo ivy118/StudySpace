@@ -61,7 +61,7 @@ Run the app
 ## Contributing
 
 All issues and feature requests are welcome.
-Feel free to check the [issues page](<LINK TO ISSUES PAGE>) if you want to contribute.
+Feel free to check the [issues page](https://github.com/ivy118/StudySpace/issues) if you want to contribute.
 
 ## Authors
 
