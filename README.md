@@ -53,8 +53,8 @@ Run the app
 
 ## Built With
 
-  - [React](https://reactjs.org/) - The front-end library for the front-end
-  - [Express](https://expressjs.com/) - The web framework for Node.js for the back-end
+  - [React](https://reactjs.org/) - Front-end library used to built the user interface
+  - [Express](https://expressjs.com/) - Web framework for Node.js for the back-end
   - [ElephantDB](https://www.elephantsql.com/) - For relational database (PostgreSQL)
   - [AWS S3](https://aws.amazon.com/pm/serv-s3/?trk=fecf68c9-3874-4ae2-a7ed-72b6d19c8034&sc_channel=ps&sc_campaign=acquisition&sc_medium=ACQ-P|PS-GO|Brand|Desktop|SU|Storage|S3|US|EN|Text&s_kwcid=AL!4422!3!488982706719!e!!g!!aws%20s3&ef_id=Cj0KCQjw8amWBhCYARIsADqZJoVOoSKV5Zl5Hnes1iBb35FwzHT0iVzz-tfofZEGDMWGsoWcCqLIjb8aAoB3EALw_wcB:G:s&s_kwcid=AL!4422!3!488982706719!e!!g!!aws%20s3) - For image storage
 
